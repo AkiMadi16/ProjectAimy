@@ -19,14 +19,14 @@ This Dashboard provides a view of the operational metrics of a childcare cantre 
 
 ## Business-side metrics
 
-### Occupancy Rate℅ : 
+- Occupancy Rate℅ : 
 
 Shows the percentage of licensed capacity that is currently enrolled (e.g 85% full), directly impacting revenue potential. 
 
 ***Business Value*** - Support stratergic enrollment planning 
 ***Goal*** - increase occupancy rate **100%**.
 
-## Enrollment Rate / New Enrollments: 
+-  Enrollment Rate / New Enrollments: 
 
 Tracks the number of new children enrolled over a period, indicates marketing and growth effectiveness.
 
@@ -53,8 +53,10 @@ Tracks the number of new children enrolled over a period, indicates marketing an
 
 4. Sample Queries
 
-``` SELECT distinct(BusinessUnitId) AS totalbusinessunits
-FROM Enrollment ```
+``` +SQL
+SELECT distinct(BusinessUnitId) AS totalbusinessunits
+FROM Enrollment 
+```
 
 | TotalAttendee                                                    | TotalBusinessUnits | TotalOrgs                | TotalAccounts      |
 | ----------------------------------------------------------- | --------------- | ---------------------- | ------------------| 474     | 8| 17 | 371 |
