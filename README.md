@@ -8,33 +8,27 @@
 
 The solution combinees **Power BI dashboards**, **data modelling**, and **Microsoft Fabric data engineering** principles to create an operational reporting platform focused on childcare centre performance.
 
-----------------------------------------------------
-
 ## Business Problem
 
-Childcare centers needs to ensure that they provide a quality care and a sustainable business through measurable outcomes. Tracking the right metrics such as tracking enrollments and conversion rates at each step of the process and identify where families are dropping off and fix those pain points. It allows business to understand opportunities to increase enrollments by attracting more families while providing a quality service.
--------------------------------------
+**Childcare centers** needs to ensure that they provide a quality care and a sustainable business through measurable outcomes. Tracking the right metrics such as tracking enrollments and conversion rates at each step of the process and identify where families are dropping off and fix those pain points. It allows business to understand opportunities to increase enrollments by attracting more families while providing a quality service.
 
 ## Center Management Dashboard
 
 This Dashboard provides a view of the operational metrics of a childcare cantre through business and enrollment metrics.
 
---------------------------------------------------------
 
 ## Business-side metrics
 
-### . Occupancy Rate: 
+### Occupancy Rate℅ : 
 
 Shows the percentage of licensed capacity that is currently enrolled (e.g 85% full), directly impacting revenue potential. 
 
 ***Business Value*** - Support stratergic enrollment planning 
-***Goal*** - increase occupancy rate **100%.
+***Goal*** - increase occupancy rate **100%**.
 
 ## Enrollment Rate / New Enrollments: 
 
 Tracks the number of new children enrolled over a period, indicates marketing and growth effectiveness.
-
--------------------------------------------
 
 ## Technologies
 
@@ -59,9 +53,8 @@ Tracks the number of new children enrolled over a period, indicates marketing an
 
 4. Sample Queries
 
-` SELECT distinct(BusinessUnitId) AS totalbusinessunits
-FROM Enrollment `
+``` SELECT distinct(BusinessUnitId) AS totalbusinessunits
+FROM Enrollment ```
 
 | TotalAttendee                                                    | TotalBusinessUnits | TotalOrgs                | TotalAccounts      |
-| ----------------------------------------------------------- | --------------- | ---------------------- | ------------------|
-|  | 474     | 8| 17 | 371 |
+| ----------------------------------------------------------- | --------------- | ---------------------- | ------------------| 474     | 8| 17 | 371 |
