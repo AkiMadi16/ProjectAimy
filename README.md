@@ -53,10 +53,10 @@ Tracks the number of new children enrolled over a period, indicates marketing an
 
 4. Sample Queries
 
-``` +SQL
+```
 SELECT distinct(BusinessUnitId) AS totalbusinessunits
 FROM Enrollment 
 ```
 
 | TotalAttendee                                                    | TotalBusinessUnits | TotalOrgs                | TotalAccounts      |
-| ----------------------------------------------------------- | --------------- | ---------------------- | ------------------| 474     | 8| 17 | 371 |
+| ----------------------------------------------------------- | --------------- | ---------------------- | ------------------| |  |474     | 8| 17 | 371 |
