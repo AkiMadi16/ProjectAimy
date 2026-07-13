@@ -58,5 +58,5 @@ SELECT distinct(BusinessUnitId) AS totalbusinessunits
 FROM Enrollment 
 ```
 
-| TotalAttendee                                                    | TotalBusinessUnits | TotalOrgs                | TotalAccounts      |
+|TotalAttendee                                                    | TotalBusinessUnits | TotalOrgs                | TotalAccounts      
 | ----------------------------------------------------------- | --------------- | ---------------------- | ------------------| |  |474     | 8| 17 | 371 |
