@@ -20,95 +20,54 @@
 # META   }
 # META }
 
+# MARKDOWN ********************
+
+# # **Project Aimy Notebook**
+
+# MARKDOWN ********************
+
+# #### List all tables in the current Database - Python
+
 # CELL ********************
 
-# MAGIC %%sql
-# MAGIC -- Welcome to your new notebook
-# MAGIC --Type here in the cell editor to add code!
-# MAGIC SELECT
-# MAGIC     COUNT(*) AS AttendanceRows,
-# MAGIC     COUNT(e.Id) AS MatchedEnrollmentRows
-# MAGIC FROM stg_Attendance AS a
-# MAGIC LEFT JOIN stg_Enrollment AS e
-# MAGIC     ON e.Id = a.EnrollmentId;
+spark.catalog.listTables()
 
 # METADATA ********************
 
 # META {
-# META   "language": "sparksql",
+# META   "language": "python",
 # META   "language_group": "synapse_pyspark"
 # META }
 
 # CELL ********************
 
-# MAGIC %%sql
-# MAGIC SELECT
-# MAGIC     COUNT(*) AS AttendanceRows,
-# MAGIC     COUNT(atd.Id) AS MatchedAttendeeRows
-# MAGIC FROM stg_Attendance a
-# MAGIC LEFT JOIN stg_Attendee atd
-# MAGIC     ON atd.Id = a.AttendeeId;
+from pyspark.sql.functions import count, col
+
+attendance_df = spark.table("stg_Attendance")
+enrollment_df = spark.table("stg_Enrollment")
+
+# Join Attendance with Enrollment
+result_df = (
+    attendance_df.alias("a")
+    .join(
+        enrollment_df.alias("e"),
+        col("a.EnrollmentId") == col("e.Id"),
+        "left"
+    )
+    .agg(
+        count("*").alias("AttendanceRows"),
+        count(col("e.Id")).alias("MatchedEnrollmentRows")
+    )
+)
+
+display(result_df)
 
 # METADATA ********************
 
 # META {
-# META   "language": "sparksql",
+# META   "language": "python",
 # META   "language_group": "synapse_pyspark"
 # META }
 
-# CELL ********************
+# MARKDOWN ********************
 
-# MAGIC %%sql
-# MAGIC -- Enrollment to Attendee
-# MAGIC SELECT
-# MAGIC     COUNT(*) AS EnrollmentRows,
-# MAGIC     SUM(CASE WHEN a.Id IS NOT NULL THEN 1 ELSE 0 END) AS MatchedRows,
-# MAGIC     SUM(CASE WHEN a.Id IS NULL THEN 1 ELSE 0 END) AS UnmatchedRows
-# MAGIC FROM stg_Enrollment e
-# MAGIC LEFT JOIN stg_Attendee a
-# MAGIC     ON a.Id = e.AttendeeId;
-
-# METADATA ********************
-
-# META {
-# META   "language": "sparksql",
-# META   "language_group": "synapse_pyspark"
-# META }
-
-# CELL ********************
-
-# MAGIC %%sql
-# MAGIC -- Attendance to Enrollment
-# MAGIC SELECT
-# MAGIC     COUNT(*) AS AttendanceRows,
-# MAGIC     SUM(CASE WHEN e.Id IS NOT NULL THEN 1 ELSE 0 END) AS MatchedRows,
-# MAGIC     SUM(CASE WHEN e.Id IS NULL THEN 1 ELSE 0 END) AS UnmatchedRows
-# MAGIC FROM stg_Attendance a
-# MAGIC LEFT JOIN stg_Enrollment e
-# MAGIC     ON e.Id = a.EnrollmentId;
-
-# METADATA ********************
-
-# META {
-# META   "language": "sparksql",
-# META   "language_group": "synapse_pyspark"
-# META }
-
-# CELL ********************
-
-# MAGIC %%sql
-# MAGIC -- Attendance to Attendee
-# MAGIC SELECT
-# MAGIC     COUNT(*) AS AttendanceRows,
-# MAGIC     SUM(CASE WHEN d.Id IS NOT NULL THEN 1 ELSE 0 END) AS MatchedRows,
-# MAGIC     SUM(CASE WHEN d.Id IS NULL THEN 1 ELSE 0 END) AS UnmatchedRows
-# MAGIC FROM stg_Attendance a
-# MAGIC LEFT JOIN stg_Attendee d
-# MAGIC     ON d.Id = a.AttendeeId;
-
-# METADATA ********************
-
-# META {
-# META   "language": "sparksql",
-# META   "language_group": "synapse_pyspark"
-# META }
