@@ -1,0 +1,915 @@
+{
+  "properties": {
+    "jobMode": "Batch",
+    "source": {
+      "type": "SqlServerTable",
+      "connectionSettings": {
+        "type": "SqlServer",
+        "typeProperties": {
+          "database": "PA_SDB"
+        },
+        "externalReferences": {
+          "connection": "96d9c7d6-d903-4fc1-8d9a-40dfa75dfeea"
+        }
+      }
+    },
+    "destination": {
+      "type": "LakehouseTable",
+      "connectionSettings": {
+        "type": "Lakehouse",
+        "typeProperties": {
+          "workspaceId": "00000000-0000-0000-0000-000000000000",
+          "artifactId": "dbba1f51-93e1-aef1-432e-8fa9fcd3d422",
+          "rootFolder": "Tables"
+        }
+      }
+    },
+    "policy": {
+      "timeout": "0.12:00:00",
+      "retry": 0
+    }
+  },
+  "activities": [
+    {
+      "id": "f40aa125-97d4-4fa4-9e36-ddd7852725ef",
+      "properties": {
+        "source": {
+          "datasetSettings": {
+            "schema": "dbo",
+            "table": "stg_Attendance"
+          },
+          "partitionSettings": {
+            "partitionOption": "None"
+          }
+        },
+        "destination": {
+          "writeBehavior": "Append",
+          "datasetSettings": {
+            "schema": "dbo",
+            "table": "stg_Attendance"
+          },
+          "applyVOrder": false
+        },
+        "enableStaging": false,
+        "translator": {
+          "type": "TabularTranslator",
+          "mappings": [
+            {
+              "source": {
+                "name": "Id",
+                "type": "Int32",
+                "physicalType": "int"
+              },
+              "destination": {
+                "name": "Id",
+                "physicalType": "integer"
+              }
+            },
+            {
+              "source": {
+                "name": "OrgId",
+                "type": "Int32",
+                "physicalType": "int"
+              },
+              "destination": {
+                "name": "OrgId",
+                "physicalType": "integer"
+              }
+            },
+            {
+              "source": {
+                "name": "TypeId",
+                "type": "Int32",
+                "physicalType": "int"
+              },
+              "destination": {
+                "name": "TypeId",
+                "physicalType": "integer"
+              }
+            },
+            {
+              "source": {
+                "name": "AttendeeId",
+                "type": "Int32",
+                "physicalType": "int"
+              },
+              "destination": {
+                "name": "AttendeeId",
+                "physicalType": "integer"
+              }
+            },
+            {
+              "source": {
+                "name": "EnrollmentId",
+                "type": "Int32",
+                "physicalType": "int"
+              },
+              "destination": {
+                "name": "EnrollmentId",
+                "physicalType": "integer"
+              }
+            },
+            {
+              "source": {
+                "name": "ProgramId",
+                "type": "Int32",
+                "physicalType": "int"
+              },
+              "destination": {
+                "name": "ProgramId",
+                "physicalType": "integer"
+              }
+            },
+            {
+              "source": {
+                "name": "Date",
+                "type": "String",
+                "physicalType": "nvarchar",
+                "length": "10"
+              },
+              "destination": {
+                "name": "Date",
+                "physicalType": "string"
+              }
+            },
+            {
+              "source": {
+                "name": "IsActive",
+                "type": "Boolean",
+                "physicalType": "bit"
+              },
+              "destination": {
+                "name": "IsActive",
+                "physicalType": "boolean"
+              }
+            },
+            {
+              "source": {
+                "name": "CreatedOn",
+                "type": "DateTime",
+                "physicalType": "datetime"
+              },
+              "destination": {
+                "name": "CreatedOn",
+                "physicalType": "timestamp"
+              }
+            },
+            {
+              "source": {
+                "name": "UpdatedOn",
+                "type": "DateTime",
+                "physicalType": "datetime"
+              },
+              "destination": {
+                "name": "UpdatedOn",
+                "physicalType": "timestamp"
+              }
+            },
+            {
+              "source": {
+                "name": "TimeStart",
+                "type": "DateTime",
+                "physicalType": "datetime"
+              },
+              "destination": {
+                "name": "TimeStart",
+                "physicalType": "timestamp"
+              }
+            },
+            {
+              "source": {
+                "name": "TimeEnd",
+                "type": "DateTime",
+                "physicalType": "datetime"
+              },
+              "destination": {
+                "name": "TimeEnd",
+                "physicalType": "timestamp"
+              }
+            },
+            {
+              "source": {
+                "name": "BookingId",
+                "type": "Int32",
+                "physicalType": "int"
+              },
+              "destination": {
+                "name": "BookingId",
+                "physicalType": "integer"
+              }
+            }
+          ]
+        },
+        "typeConversionSettings": {
+          "typeConversion": {
+            "allowDataTruncation": true,
+            "treatBooleanAsNumber": false
+          }
+        }
+      }
+    },
+    {
+      "id": "c2c79757-7027-40ff-ad02-fc83e8038cb0",
+      "properties": {
+        "source": {
+          "datasetSettings": {
+            "schema": "dbo",
+            "table": "stg_Attendee"
+          },
+          "partitionSettings": {
+            "partitionOption": "None"
+          }
+        },
+        "destination": {
+          "writeBehavior": "Append",
+          "datasetSettings": {
+            "schema": "dbo",
+            "table": "stg_Attendee"
+          },
+          "applyVOrder": false
+        },
+        "enableStaging": false,
+        "translator": {
+          "type": "TabularTranslator"
+        },
+        "typeConversionSettings": {
+          "typeConversion": {
+            "allowDataTruncation": true,
+            "treatBooleanAsNumber": false
+          }
+        }
+      }
+    },
+    {
+      "id": "bba1697c-a705-44a3-a1b7-f2e95c8d1388",
+      "properties": {
+        "source": {
+          "datasetSettings": {
+            "schema": "dbo",
+            "table": "stg_BusinessUnit"
+          },
+          "partitionSettings": {
+            "partitionOption": "None"
+          }
+        },
+        "destination": {
+          "writeBehavior": "Append",
+          "datasetSettings": {
+            "schema": "dbo",
+            "table": "stg_BusinessUnit"
+          },
+          "applyVOrder": false
+        },
+        "enableStaging": false,
+        "translator": {
+          "type": "TabularTranslator"
+        },
+        "typeConversionSettings": {
+          "typeConversion": {
+            "allowDataTruncation": true,
+            "treatBooleanAsNumber": false
+          }
+        }
+      }
+    },
+    {
+      "id": "c7996fc5-93c2-4f7f-88d1-d47a40b964ca",
+      "properties": {
+        "source": {
+          "datasetSettings": {
+            "schema": "dbo",
+            "table": "stg_Enrollment"
+          },
+          "partitionSettings": {
+            "partitionOption": "None"
+          }
+        },
+        "destination": {
+          "writeBehavior": "Append",
+          "datasetSettings": {
+            "schema": "dbo",
+            "table": "stg_Enrollment"
+          },
+          "applyVOrder": false
+        },
+        "enableStaging": false,
+        "translator": {
+          "type": "TabularTranslator"
+        },
+        "typeConversionSettings": {
+          "typeConversion": {
+            "allowDataTruncation": true,
+            "treatBooleanAsNumber": false
+          }
+        }
+      }
+    },
+    {
+      "id": "d0335ec0-c966-42e3-9e4b-b45921b138cd",
+      "properties": {
+        "source": {
+          "datasetSettings": {
+            "schema": "dbo",
+            "table": "stg_HeadCount"
+          },
+          "partitionSettings": {
+            "partitionOption": "None"
+          }
+        },
+        "destination": {
+          "writeBehavior": "Append",
+          "datasetSettings": {
+            "schema": "dbo",
+            "table": "stg_HeadCount"
+          },
+          "applyVOrder": false
+        },
+        "enableStaging": false,
+        "translator": {
+          "type": "TabularTranslator",
+          "mappings": [
+            {
+              "source": {
+                "name": "Id",
+                "type": "Int32",
+                "physicalType": "int"
+              },
+              "destination": {
+                "name": "Id",
+                "physicalType": "integer"
+              }
+            },
+            {
+              "source": {
+                "name": "OrgId",
+                "type": "Int32",
+                "physicalType": "int"
+              },
+              "destination": {
+                "name": "OrgId",
+                "physicalType": "integer"
+              }
+            },
+            {
+              "source": {
+                "name": "TermProgramSetId",
+                "type": "Int32",
+                "physicalType": "int"
+              },
+              "destination": {
+                "name": "TermProgramSetId",
+                "physicalType": "integer"
+              }
+            },
+            {
+              "source": {
+                "name": "TermProductId",
+                "type": "Int32",
+                "physicalType": "int"
+              },
+              "destination": {
+                "name": "TermProductId",
+                "physicalType": "integer"
+              }
+            },
+            {
+              "source": {
+                "name": "Description",
+                "type": "String",
+                "physicalType": "nvarchar",
+                "length": "255"
+              },
+              "destination": {
+                "name": "Description",
+                "physicalType": "string"
+              }
+            },
+            {
+              "source": {
+                "name": "HeadcountType",
+                "type": "String",
+                "physicalType": "nvarchar",
+                "length": "255"
+              },
+              "destination": {
+                "name": "HeadcountType",
+                "physicalType": "string"
+              }
+            },
+            {
+              "source": {
+                "name": "StatusId",
+                "type": "Int32",
+                "physicalType": "int"
+              },
+              "destination": {
+                "name": "StatusId",
+                "physicalType": "integer"
+              }
+            },
+            {
+              "source": {
+                "name": "HeadcountDateTime",
+                "type": "DateTime",
+                "physicalType": "datetime"
+              },
+              "destination": {
+                "name": "HeadcountDateTime",
+                "physicalType": "timestamp"
+              }
+            },
+            {
+              "source": {
+                "name": "TotalCount",
+                "type": "Int32",
+                "physicalType": "int"
+              },
+              "destination": {
+                "name": "TotalCount",
+                "physicalType": "integer"
+              }
+            },
+            {
+              "source": {
+                "name": "IsActive",
+                "type": "Boolean",
+                "physicalType": "bit"
+              },
+              "destination": {
+                "name": "IsActive",
+                "physicalType": "boolean"
+              }
+            },
+            {
+              "source": {
+                "name": "CreatedOn",
+                "type": "DateTime",
+                "physicalType": "datetime"
+              },
+              "destination": {
+                "name": "CreatedOn",
+                "physicalType": "timestamp"
+              }
+            },
+            {
+              "source": {
+                "name": "UpdatedOn",
+                "type": "DateTime",
+                "physicalType": "datetime"
+              },
+              "destination": {
+                "name": "UpdatedOn",
+                "physicalType": "timestamp"
+              }
+            }
+          ]
+        },
+        "typeConversionSettings": {
+          "typeConversion": {
+            "allowDataTruncation": true,
+            "treatBooleanAsNumber": false
+          }
+        }
+      }
+    },
+    {
+      "id": "93f20c88-e90d-4072-a80a-5b413daf7a24",
+      "properties": {
+        "source": {
+          "datasetSettings": {
+            "schema": "dbo",
+            "table": "stg_Org"
+          },
+          "partitionSettings": {
+            "partitionOption": "None"
+          }
+        },
+        "destination": {
+          "writeBehavior": "Append",
+          "datasetSettings": {
+            "schema": "dbo",
+            "table": "stg_Org"
+          },
+          "applyVOrder": false
+        },
+        "enableStaging": false,
+        "translator": {
+          "type": "TabularTranslator"
+        },
+        "typeConversionSettings": {
+          "typeConversion": {
+            "allowDataTruncation": true,
+            "treatBooleanAsNumber": false
+          }
+        }
+      }
+    },
+    {
+      "id": "70f72f9f-e47f-4506-be90-6b06910f4c2a",
+      "properties": {
+        "source": {
+          "datasetSettings": {
+            "schema": "dbo",
+            "table": "stg_Program"
+          },
+          "partitionSettings": {
+            "partitionOption": "None"
+          }
+        },
+        "destination": {
+          "writeBehavior": "Append",
+          "datasetSettings": {
+            "schema": "dbo",
+            "table": "stg_Program"
+          },
+          "applyVOrder": false
+        },
+        "enableStaging": false,
+        "translator": {
+          "type": "TabularTranslator",
+          "mappings": [
+            {
+              "source": {
+                "name": "Id",
+                "type": "Int32",
+                "physicalType": "int"
+              },
+              "destination": {
+                "name": "Id",
+                "physicalType": "integer"
+              }
+            },
+            {
+              "source": {
+                "name": "ProgramCategoryId",
+                "type": "Int32",
+                "physicalType": "int"
+              },
+              "destination": {
+                "name": "ProgramCategoryId",
+                "physicalType": "integer"
+              }
+            },
+            {
+              "source": {
+                "name": "OrgId",
+                "type": "Int32",
+                "physicalType": "int"
+              },
+              "destination": {
+                "name": "OrgId",
+                "physicalType": "integer"
+              }
+            },
+            {
+              "source": {
+                "name": "Code",
+                "type": "String",
+                "physicalType": "nvarchar",
+                "length": "255"
+              },
+              "destination": {
+                "name": "Code",
+                "physicalType": "string"
+              }
+            },
+            {
+              "source": {
+                "name": "IsActive",
+                "type": "Boolean",
+                "physicalType": "bit"
+              },
+              "destination": {
+                "name": "IsActive",
+                "physicalType": "boolean"
+              }
+            },
+            {
+              "source": {
+                "name": "CreatedOn",
+                "type": "DateTime",
+                "physicalType": "datetime"
+              },
+              "destination": {
+                "name": "CreatedOn",
+                "physicalType": "timestamp"
+              }
+            },
+            {
+              "source": {
+                "name": "UpdatedOn",
+                "type": "DateTime",
+                "physicalType": "datetime"
+              },
+              "destination": {
+                "name": "UpdatedOn",
+                "physicalType": "timestamp"
+              }
+            },
+            {
+              "source": {
+                "name": "Version",
+                "type": "Byte[]",
+                "physicalType": "binary",
+                "length": "8"
+              },
+              "destination": {
+                "name": "Version",
+                "physicalType": "binary"
+              }
+            },
+            {
+              "source": {
+                "name": "BusinessUnitId",
+                "type": "Int32",
+                "physicalType": "int"
+              },
+              "destination": {
+                "name": "BusinessUnitId",
+                "physicalType": "integer"
+              }
+            },
+            {
+              "source": {
+                "name": "ProgramName",
+                "type": "String",
+                "physicalType": "nvarchar",
+                "length": "255"
+              },
+              "destination": {
+                "name": "ProgramName",
+                "physicalType": "string"
+              }
+            }
+          ]
+        },
+        "typeConversionSettings": {
+          "typeConversion": {
+            "allowDataTruncation": true,
+            "treatBooleanAsNumber": false
+          }
+        }
+      }
+    },
+    {
+      "id": "f60f739e-f863-411d-9c56-a0490fd228c5",
+      "properties": {
+        "source": {
+          "datasetSettings": {
+            "schema": "dbo",
+            "table": "stg_ProgramCategory"
+          },
+          "partitionSettings": {
+            "partitionOption": "None"
+          }
+        },
+        "destination": {
+          "writeBehavior": "Append",
+          "datasetSettings": {
+            "schema": "dbo",
+            "table": "stg_ProgramCategory"
+          },
+          "applyVOrder": false
+        },
+        "enableStaging": false,
+        "translator": {
+          "type": "TabularTranslator",
+          "mappings": [
+            {
+              "source": {
+                "name": "Id",
+                "type": "Int32",
+                "physicalType": "int"
+              },
+              "destination": {
+                "name": "Id",
+                "physicalType": "integer"
+              }
+            },
+            {
+              "source": {
+                "name": "BusinessUnitId",
+                "type": "Int32",
+                "physicalType": "int"
+              },
+              "destination": {
+                "name": "BusinessUnitId",
+                "physicalType": "integer"
+              }
+            },
+            {
+              "source": {
+                "name": "Code",
+                "type": "String",
+                "physicalType": "nvarchar",
+                "length": "50"
+              },
+              "destination": {
+                "name": "Code",
+                "physicalType": "string"
+              }
+            },
+            {
+              "source": {
+                "name": "ProgramName",
+                "type": "String",
+                "physicalType": "nvarchar",
+                "length": "255"
+              },
+              "destination": {
+                "name": "ProgramName",
+                "physicalType": "string"
+              }
+            },
+            {
+              "source": {
+                "name": "TypeId",
+                "type": "Int32",
+                "physicalType": "int"
+              },
+              "destination": {
+                "name": "TypeId",
+                "physicalType": "integer"
+              }
+            },
+            {
+              "source": {
+                "name": "IsActive",
+                "type": "Boolean",
+                "physicalType": "bit"
+              },
+              "destination": {
+                "name": "IsActive",
+                "physicalType": "boolean"
+              }
+            },
+            {
+              "source": {
+                "name": "CreatedOn",
+                "type": "DateTime",
+                "physicalType": "datetime"
+              },
+              "destination": {
+                "name": "CreatedOn",
+                "physicalType": "timestamp"
+              }
+            },
+            {
+              "source": {
+                "name": "UpdatedOn",
+                "type": "DateTime",
+                "physicalType": "datetime"
+              },
+              "destination": {
+                "name": "UpdatedOn",
+                "physicalType": "timestamp"
+              }
+            },
+            {
+              "source": {
+                "name": "OrgId",
+                "type": "Int32",
+                "physicalType": "int"
+              },
+              "destination": {
+                "name": "OrgId",
+                "physicalType": "integer"
+              }
+            }
+          ]
+        },
+        "typeConversionSettings": {
+          "typeConversion": {
+            "allowDataTruncation": true,
+            "treatBooleanAsNumber": false
+          }
+        }
+      }
+    },
+    {
+      "id": "4e45486e-b678-492c-a0fd-cca7a9c5abfb",
+      "properties": {
+        "source": {
+          "datasetSettings": {
+            "schema": "dbo",
+            "table": "stg_PublicHoliday"
+          },
+          "partitionSettings": {
+            "partitionOption": "None"
+          }
+        },
+        "destination": {
+          "writeBehavior": "Append",
+          "datasetSettings": {
+            "schema": "dbo",
+            "table": "stg_PublicHoliday"
+          },
+          "applyVOrder": false
+        },
+        "enableStaging": false,
+        "translator": {
+          "type": "TabularTranslator",
+          "mappings": [
+            {
+              "source": {
+                "name": "Id",
+                "type": "Int32",
+                "physicalType": "int"
+              },
+              "destination": {
+                "name": "Id",
+                "physicalType": "integer"
+              }
+            },
+            {
+              "source": {
+                "name": "CountryId",
+                "type": "Int32",
+                "physicalType": "int"
+              },
+              "destination": {
+                "name": "CountryId",
+                "physicalType": "integer"
+              }
+            },
+            {
+              "source": {
+                "name": "Date",
+                "type": "String",
+                "physicalType": "nvarchar",
+                "length": "10"
+              },
+              "destination": {
+                "name": "Date",
+                "physicalType": "string"
+              }
+            },
+            {
+              "source": {
+                "name": "HolidayName",
+                "type": "String",
+                "physicalType": "nvarchar",
+                "length": "50"
+              },
+              "destination": {
+                "name": "HolidayName",
+                "physicalType": "string"
+              }
+            },
+            {
+              "source": {
+                "name": "Description",
+                "type": "String",
+                "physicalType": "nvarchar",
+                "length": "255"
+              },
+              "destination": {
+                "name": "Description",
+                "physicalType": "string"
+              }
+            },
+            {
+              "source": {
+                "name": "IsActive",
+                "type": "Boolean",
+                "physicalType": "bit"
+              },
+              "destination": {
+                "name": "IsActive",
+                "physicalType": "boolean"
+              }
+            },
+            {
+              "source": {
+                "name": "CreatedOn",
+                "type": "DateTime",
+                "physicalType": "datetime"
+              },
+              "destination": {
+                "name": "CreatedOn",
+                "physicalType": "timestamp"
+              }
+            },
+            {
+              "source": {
+                "name": "UpdatedOn",
+                "type": "DateTime",
+                "physicalType": "datetime"
+              },
+              "destination": {
+                "name": "UpdatedOn",
+                "physicalType": "timestamp"
+              }
+            }
+          ]
+        },
+        "typeConversionSettings": {
+          "typeConversion": {
+            "allowDataTruncation": true,
+            "treatBooleanAsNumber": false
+          }
+        }
+      }
+    }
+  ]
+}
