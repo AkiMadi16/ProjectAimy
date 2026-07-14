@@ -57,7 +57,8 @@ Tracks the number of new children enrolled over a period, indicates marketing an
 SELECT distinct(BusinessUnitId) AS totalbusinessunits
 FROM Enrollment 
 ```
+This shows the details of 8 different Business units and 17 different Organisations 474 Attendees enrolled
 
-|   TotalAttendee  | TotalBusinessUnits | TotalOrgs| TotalAccounts|     
+|   TotalAttendees | TotalBusinessUnits | TotalOrgs| TotalAccounts|     
 | ---------------- | ------------------ | -------- | -------------| 
-|.      474        |        8           |     17   |     371      |
+|       474        |        8           |     17   |     371      |
