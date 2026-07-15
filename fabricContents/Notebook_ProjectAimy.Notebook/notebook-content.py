@@ -26,7 +26,16 @@
 
 # MARKDOWN ********************
 
+# **Center Management Star Schema**
+
+# MARKDOWN ********************
+
 # #### List all tables in the current Database - Python
+
+# CELL ********************
+
+from pyspark.sql import functions as F
+from pyspark.sql.window import Window
 
 # CELL ********************
 
