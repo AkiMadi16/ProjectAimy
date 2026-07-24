@@ -8,14 +8,20 @@
 # META   },
 # META   "dependencies": {
 # META     "lakehouse": {
-# META       "default_lakehouse": "fcd3d422-8fa9-432e-aef1-93e1dbba1f51",
-# META       "default_lakehouse_name": "PA_DW",
+# META       "default_lakehouse": "fe0976b8-40a1-42dd-a9a5-56a4ae7cde8c",
+# META       "default_lakehouse_name": "PA_DB",
 # META       "default_lakehouse_workspace_id": "fe998802-535a-48c0-a157-36409c78eeaf",
 # META       "known_lakehouses": [
 # META         {
-# META           "id": "fcd3d422-8fa9-432e-aef1-93e1dbba1f51"
+# META           "id": "fe0976b8-40a1-42dd-a9a5-56a4ae7cde8c"
+# META         },
+# META         {
+# META           "id": "11e3bb97-e105-4bb2-acb9-cf893bdf9662"
 # META         }
 # META       ]
+# META     },
+# META     "warehouse": {
+# META       "known_warehouses": []
 # META     }
 # META   }
 # META }
@@ -31,6 +37,10 @@
 from pyspark.sql import functions as F
 from pyspark.sql.window import Window
 
+spark.conf.set("spark.sql.legacy.timeParserPolicy", "LEGACY")
+spark.conf.set("spark.sql.parquet.datetimeRebaseModeInRead", "LEGACY")
+spark.conf.set("spark.sql.parquet.datetimeRebaseModeInWrite", "LEGACY")
+
 # METADATA ********************
 
 # META {
@@ -44,7 +54,9 @@ from pyspark.sql.window import Window
 
 # CELL ********************
 
+"""
 spark.sql("SHOW TABLES").show()
+"""
 
 # METADATA ********************
 
@@ -60,15 +72,20 @@ spark.sql("SHOW TABLES").show()
 # CELL ********************
 
 """
-spark.sql("TRUNCATE TABLE dbo.stg_Enrollment")
-spark.sql("TRUNCATE TABLE dbo.stg_Attendance")
-spark.sql("TRUNCATE TABLE dbo.stg_HeadCount")
-spark.sql("TRUNCATE TABLE dbo.stg_BusinessUnit")
-spark.sql("TRUNCATE TABLE dbo.stg_Org")
-spark.sql("TRUNCATE TABLE dbo.stg_Attendee")
-spark.sql("TRUNCATE TABLE dbo.stg_Program")
-spark.sql("TRUNCATE TABLE dbo.stg_ProgramCategory")
-spark.sql("TRUNCATE TABLE dbo.stg_PublicHoliday")
+spark.sql("TRUNCATE TABLE "PA_SBD.dbo.stg_Enrollment")
+spark.sql("TRUNCATE TABLE "PA_SBD.dbo.stg_Attendance")
+spark.sql("TRUNCATE TABLE "PA_SBD.dbo.stg_HeadCount")
+spark.sql("TRUNCATE TABLE "PA_SBD.dbo.stg_BusinessUnit")
+spark.sql("TRUNCATE TABLE "PA_SBD.dbo.stg_Org")
+spark.sql("TRUNCATE TABLE "PA_SBD.dbo.stg_Attendee")
+spark.sql("TRUNCATE TABLE "PA_SBD.dbo.stg_Program")
+spark.sql("TRUNCATE TABLE "PA_SBD.dbo.stg_ProgramCategory")
+spark.sql("TRUNCATE TABLE "PA_SBD.dbo.stg_PublicHoliday")
+
+
+spark.sql("DROP TABLE IF EXISTS PA_SDB.dbo.cln_businessunit")
+spark.sql("DROP TABLE IF EXISTS PA_SDB.dbo.cln_organisation")
+spark.sql("DROP TABLE IF EXISTS PA_SDB.dbo.cln_attendee")
 """
 
 # METADATA ********************
@@ -82,15 +99,16 @@ spark.sql("TRUNCATE TABLE dbo.stg_PublicHoliday")
 
 # CELL ********************
 
+
 staging_tables = [
-    "dbo.stg_Enrollment",
-    "dbo.stg_Attendance",
-    "dbo.stg_Attendee",
-    "dbo.stg_Org",
-    "dbo.stg_BusinessUnit",
-    "dbo.stg_Program",
-    "dbo.stg_ProgramCategory",
-    "dbo.stg_HeadCount"
+    "PA_DB.dbo.Enrollment",
+    "PA_DB.dbo.Attendance",
+    "PA_DB.dbo.Attendee",
+    "PA_DB.dbo.Org",
+    "PA_DB.dbo.BusinessUnit",
+    "PA_DB.dbo.Program",
+    "PA_DB.dbo.ProgramCategory",
+    "PA_DB.dbo.HeadCount"
 ]
 
 for table in staging_tables:
@@ -107,12 +125,13 @@ for table in staging_tables:
 # CELL ********************
 
 # 2. READ STAGING TABLES
-stg_enrollment = spark.table("stg_Enrollment")
-stg_attendance = spark.table("stg_Attendance")
-stg_attendee = spark.table("stg_Attendee")
-stg_org = spark.table("stg_Org")
-stg_business_unit = spark.table("stg_BusinessUnit")
-stg_headcount = spark.table("stg_HeadCount")
+
+stg_enrollment = spark.table("PA_DB.dbo.Enrollment")
+stg_attendance = spark.table("PA_DB.dbo.Attendance")
+stg_attendee = spark.table("PA_DB.dbo.Attendee")
+stg_org = spark.table("PA_DB.dbo.Org")
+stg_business_unit = spark.table("PA_DB.dbo.BusinessUnit")
+stg_headcount = spark.table("PA_DB.dbo.HeadCount")
 
 # METADATA ********************
 
@@ -211,7 +230,7 @@ business_unit_clean = (
     .format("delta")
     .mode("overwrite")
     .option("overwriteSchema", "true")
-    .saveAsTable("dbo.cln_BusinessUnit")
+    .saveAsTable("PA_SDB.dbo.cln_BusinessUnit")
 )
 
 # METADATA ********************
@@ -321,7 +340,7 @@ organisation_clean = (
     .format("delta")
     .mode("overwrite")
     .option("overwriteSchema", "true")
-    .saveAsTable("dbo.cln_Organisation")
+    .saveAsTable("PA_SDB.dbo.cln_Organisation")
 )
 
 # METADATA ********************
@@ -379,14 +398,15 @@ attendee_source = (
 
 # CELL ********************
 
-attendee_source = (
+attendee_src = (
     attendee_source
     .withColumn(
         "DateOfBirth",
         F.when(
-            (F.col("RawDateOfBirth") >= F.to_date(F.lit("1900-01-01")))
-            & (F.col("RawDateOfBirth") <= F.current_date()),
-            F.col("RawDateOfBirth")
+             F.col("RawDateOfBirth").rlike(r"^\d{4}-\d{2}-\d{2}$") &
+            (F.to_date("RawDateOfBirth") >= F.to_date(F.lit("1900-01-01")))
+            & (F.to_date("RawDateOfBirth") <= F.current_date()),
+            F.to_date("RawDateOfBirth")
         ).otherwise(
             F.lit(None).cast("date")
         )
@@ -421,7 +441,7 @@ attendee_window = (
 )
 
 attendee_clean = (
-    attendee_source
+    attendee_src
     .withColumn(
         "_RowNumber",
         F.row_number().over(attendee_window)
@@ -434,7 +454,7 @@ attendee_clean = (
     .format("delta")
     .mode("overwrite")
     .option("overwriteSchema", "true")
-    .saveAsTable("dbo.cln_Attendee")
+    .saveAsTable("PA_SDB.dbo.cln_Attendee")
 )
 
 # METADATA ********************
@@ -526,7 +546,7 @@ enrollment_clean = (
     .format("delta")
     .mode("overwrite")
     .option("overwriteSchema", "true")
-    .saveAsTable("dbo.cln_Enrollment")
+    .saveAsTable("PA_SDB.dbo.cln_Enrollment")
 )
 
 # METADATA ********************
@@ -616,7 +636,7 @@ attendance_clean = (
     .format("delta")
     .mode("overwrite")
     .option("overwriteSchema", "true")
-    .saveAsTable("dbo.cln_Attendance")
+    .saveAsTable("PA_SDB.dbo.cln_Attendance")
 )
 
 # METADATA ********************
@@ -640,7 +660,7 @@ headcount_source = (
         F.col("TermProgramSetId").cast("long").alias("TermProgramSetId"),
         F.col("TermProductId").cast("long").alias("TermProductId"),
         F.col("Description").cast("string").alias("Description"),
-        F.col("HeadcountType").cast("string").alias("HeadcountType"),
+        F.col("Name").cast("string").alias("HeadcountType"),
         F.col("StatusId").cast("long").alias("StatusId"),
         F.col("TotalCount").cast("int").alias("TotalCount"),
         F.col("IsActive").cast("boolean").alias("IsActive"),
@@ -682,7 +702,7 @@ headcount_clean = (
     .format("delta")
     .mode("overwrite")
     .option("overwriteSchema", "true")
-    .saveAsTable("dbo.cln_HeadCount")
+    .saveAsTable("PA_SDB.dbo.cln_HeadCount")
 )
 
 # METADATA ********************
@@ -695,12 +715,12 @@ headcount_clean = (
 # CELL ********************
 
 cleaned_tables = [
-    "dbo.cln_Enrollment",
-    "dbo.cln_Attendance",
-    "dbo.cln_Attendee",
-    "dbo.cln_Organisation",
-    "dbo.cln_BusinessUnit",
-    "dbo.cln_HeadCount"
+    "PA_SDB.dbo.cln_Enrollment",
+    "PA_SDB.dbo.cln_Attendance",
+    "PA_SDB.dbo.cln_Attendee",
+    "PA_SDB.dbo.cln_Organisation",
+    "PA_SDB.dbo.cln_BusinessUnit",
+    "PA_SDB.dbo.cln_HeadCount"
 ]
 
 for tbl in cleaned_tables:
