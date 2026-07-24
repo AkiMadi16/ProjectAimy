@@ -62,3 +62,18 @@ This shows the details of 8 different Business units and 17 different Organisati
 |   TotalAttendees | TotalBusinessUnits | TotalOrgs| TotalAccounts|     
 | ---------------- | ------------------ | -------- | -------------| 
 |       474        |        8           |     17   |     371      |
+
+
+
+# Business Process
+
+
+# Technical Document
+
+# Star Schema Data Model
+
+![DataModel](https://github.com/AkiMadi16/ProjectAimy/blob/main/Documents/MedallianArch.png)
+
+# Medallion Lakehouse Architechture in Fabric
+
+![Medallion Architechture](https://github.com/AkiMadi16/ProjectAimy/blob/main/Documents/MedallianArch.png)
