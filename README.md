@@ -16,6 +16,18 @@ The solution combinees **Power BI dashboards**, **data modelling**, and **Micros
 
 This Dashboard provides a view of the operational metrics of a childcare cantre through business and enrollment metrics.
 
+warehouse must answer:
+
+- Who booked?
+- What program?
+- When?
+- Capacity vs actual usage?
+- Attendance behaviour?
+- What is the highest no of program fill? when?
+- whats the max no of room capacity
+
+
+
 
 ## Business-side metrics
 
@@ -29,6 +41,10 @@ Shows the percentage of licensed capacity that is currently enrolled (e.g 85% fu
 -  Enrollment Rate / New Enrollments: 
 
 Tracks the number of new children enrolled over a period, indicates marketing and growth effectiveness.
+
+- Occupancy forecasting for the upcoming months and classrooms
+
+- Tour-to-Enrollment Conversion Rate: Tracks what percentage of families who tour the facility actually enroll, reflecting sales and marketing effectiveness.
 
 ## Technologies
 
@@ -72,8 +88,9 @@ This shows the details of 8 different Business units and 17 different Organisati
 
 # Star Schema Data Model
 
-![DataModel](https://github.com/AkiMadi16/ProjectAimy/blob/main/Documents/MedallianArch.png)
+![DataModel](https://github.com/AkiMadi16/ProjectAimy/blob/main/Documents/datamodelPA.png)
 
-# Medallion Lakehouse Architechture in Fabric
+# Medallion Lakehouse Architecture in Fabric
 
-![Medallion Architechture](https://github.com/AkiMadi16/ProjectAimy/blob/main/Documents/MedallianArch.png)
+![Medallion Architecture](https://github.com/AkiMadi16/ProjectAimy/blob/main/Documents/MedallianArch.png)
+
